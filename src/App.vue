@@ -33,15 +33,7 @@ const message = ref('default')
 async function fetchMessage() {
   try {
     // const response = await axios.get(`http://verdictus-backend:8000/api/hello`);
-    const response = await fetch(`api/hello/`,
-        {
-          method: 'GET', // or 'POST', 'PUT', 'DELETE', etc.
-          headers: {
-            'Content-Type': 'application/json',
-            // Add any other headers you might need
-          },
-        }
-    );
+    const response = await fetch(`http://verdictus-backend:8000/api/hello`);
 
     if (response.ok) {
       const data = await response.json();
