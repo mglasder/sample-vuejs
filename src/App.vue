@@ -19,14 +19,41 @@
           class="inline-block py-2 lg:py-4 px-4 lg:px-8 rounded bg-yellow-400 hover:bg-yellow-300 text-yellow-800 shadow hover:shadow-2xl transition duration-300"
         >View Your Dashboard</a>
       </div>
+      <div>
+        <h3>{{ message }}</h3>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: "App",
-};
+import {ref, onMounted, onBeforeMount} from 'vue'
+const message = ref('default')
+
+async function fetchMessage() {
+  try {
+    // const response = await axios.get(`http://verdictus-backend:8000/api/hello`);
+    const response = await fetch(`api/hello/`,
+        {
+          method: 'GET', // or 'POST', 'PUT', 'DELETE', etc.
+          headers: {
+            'Content-Type': 'application/json',
+            // Add any other headers you might need
+          },
+        }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Fetching message:', data.message);
+      message.value = data.message;  // Update the message with the API response
+    } else {
+      console.log('Error fetching message:', response.status);
+    }
+  } catch (error) {
+    console.log('Fetch error:', error);
+  }
+}
 </script>
 
 <style>
