@@ -21,13 +21,15 @@
       </div>
       <div>
         <h3>{{ message }}</h3>
-        </div>
+        <button @click="fetchMessage">Fetch Message</button>
+      </div>
     </div>
   </div>
+
 </template>
 
-<script>
-import {ref, onMounted, onBeforeMount} from 'vue'
+<script setup>
+import {ref } from 'vue'
 const message = ref('default')
 
 async function fetchMessage() {
@@ -38,7 +40,7 @@ async function fetchMessage() {
     if (response.ok) {
       const data = await response.json();
       console.log('Fetching message:', data.message);
-      message.value = data.message;  // Update the message with the API response
+      // message.value = data.message;  // Update the message with the API response
     } else {
       console.log('Error fetching message:', response.status);
     }
